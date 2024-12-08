@@ -537,4 +537,20 @@ public class app {
                 opcionesSeleccionadas[i] = false; // Desmarcar todas las opciones
             }
         }
+        
+        public static String formatNumber(double number) {
+            NumberFormat formatter = NumberFormat.getNumberInstance(Locale.US); // Esta es una opcion de separador de miles
+            formatter.setGroupingUsed(true); // Activar agrupación por miles
+            formatter.setMaximumFractionDigits(2); // Limitar a 2 decimales
+            formatter.setMinimumFractionDigits(0); // No mostrar decimales innecesarios como ".00"
+            return formatter.format(number);
+        }
+    
+        public static void presionaEnter() {
+            System.out.println("\nPresiona 'Enter' para continuar...");
+            scanner.nextLine();
+            scanner.nextLine();
+        }
+    
+    }
     
