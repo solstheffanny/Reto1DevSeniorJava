@@ -146,4 +146,60 @@ public class app {
             };
         }
 
+        public static void seleccionDestino() {
+            int seleccion;
+            do {
+                System.out.println("\n************************************************");
+                System.out.println(" Selecciona un planeta:");
+                System.out.println("************************************************\n");
+                for (int i = 0; i < planetas.length; i++) {
+                    System.out.println(
+                            "Planeta " + (i + 1) + ". " + planetas[i] + ", está a " + formatNumber(distancia[i]) + "km.\n");
+                }
+                System.out.print("\nIntroduce el número del planeta seleccionado: ");
+                seleccion = scanner.nextInt();
+    
+                if (seleccion < 1 || seleccion > planetas.length) {
+                    System.out.println("Selección inválida. Por favor, elija de nuevo.");
+                } else {
+                    planetaSeleccionado = seleccion - 1;
+                    System.out.println("\nHas seleccionado el planeta: " + planetas[planetaSeleccionado] + ", que está a "
+                            + formatNumber(distancia[planetaSeleccionado]) + " km.\n"
+                            + descripcionPlaneta[planetaSeleccionado] + "\n\n");
+                }
+            } while (seleccion < 1 || seleccion > planetas.length);
+            presionaEnter();
+        }
+    
+        public static void seleccionDeNave() {
+            int seleccionj;
+    
+            do {
+                System.out.println("\n************************************************");
+                System.out.println("Selecciona una nave:");
+                System.out.println("************************************************\n\n");
+    
+                for (int j = 0; j < naves.length; j++) {
+                    System.out.println(
+                            "Nave " + (j + 1) + ". " + naves[j] + ", con una velocidad de " + formatNumber(velocidadNave[j])
+                                    + " km/h, y una capacidad máxima de " + formatNumber(pasajeros[j]) + " pasajeros.\n");
+                }
+                System.out.print("\nIntroduce el número de la nave: ");
+                seleccionj = scanner.nextInt();
+    
+                if (seleccionj < 1 || seleccionj > naves.length) {
+                    System.out.println("Selección inválida. Inténtalo de nuevo.");
+                } else {
+                    naveSeleccionada = seleccionj - 1; // Ajustar a índice base 0
+                    System.out.println("\nHas seleccionado la nave: " + naves[naveSeleccionada] + ", que viaja a "
+                            + formatNumber(velocidadNave[naveSeleccionada]) + " km/h y con una capacidad máxima de "
+                            + formatNumber(pasajeros[naveSeleccionada]) + " pasajeros.\n");
+    
+                    // llamamos el metodo seleccion de pasajeros
+                    seleccionDePasajeros();
+                }
+            } while (seleccionj < 1 || seleccionj > naves.length);
+            calculoDeTiempo();
+            presionaEnter();
+        }
     
