@@ -492,4 +492,49 @@ public class app {
             }
             frame.dispose();
         }
+
+        public static Object[] eventoAleatorio() { // Creacion de eventos aleatorios
+            String[] eventos = {
+                    "Fallo del sistema de propulsión: -10% de combustible",
+                    "Impacto con micrometeoritos: -5% de combustible y -5% de oxigeno",
+                    "Problemas con el suministro de energía: -15% de oxigeno",
+                    "Fugas de aire: -10% de oxigeno",
+                    "Parada técnica en una estación espacial: +5% de combustible y +5% de oxigeno",
+                    "Encontraste nave de ALF: +5% de combustible y +5% de oxigeno",
+                    "Ataque alienigena: -15% de combustible y -15% de oxigeno",
+                    "Encuentas suministros de nave abandonada en el espacio: +15% de combustible y +15% de oxigeno",
+                    "Descubriste un nuevo recurso mineral: +10% de combustible",
+                    "Problemas con la gravedad artificial: -8% de oxigeno",
+                    "Éxito en la implementación de energia solar: +20% de combustible",
+                    "Encontraste un asteroide rico en recursos: +10% de combustible y +10% de oxigeno"
+            };
+    
+            double[] cambiosCombustible = { -0.1, -0.05, 0, 0, +0.05, 0.05, -0.15, +0.15, +0.1, 0, +0.20, +0.1 };
+            double[] cambiosOxigeno = { 0, -0.05, -0.15, -0.1, +0.05, +0.05, -0.15, +0.15, 0, -0.08, 0, +0.1 };
+    
+    
+            Random random = new Random();
+            int indiceEvento = random.nextInt(eventos.length); // Seleccionar evento aleatorio
+    
+            String evento = eventos[indiceEvento];
+            double cambioCombustible = cambiosCombustible[indiceEvento] * totalCombustible; // Basado en el valor inicial
+            double cambioOxigeno = cambiosOxigeno[indiceEvento] * totalOxigeno; // Basado en el valor inicial
+    
+            // Aplicar el cambio de recursos por el evento
+            totalCombustible += cambioCombustible;
+            totalOxigeno += cambioOxigeno;
+    
+            // Evitar valores negativos
+            totalCombustible = Math.max(totalCombustible, 0);
+            totalOxigeno = Math.max(totalOxigeno, 0);
+    
+            return new Object[] { evento, cambioCombustible, cambioOxigeno };
+        }
+    
+        public static void reinicio() {
+            // Reiniciar todas las opciones
+            for (int i = 0; i < opcionesSeleccionadas.length; i++) {
+                opcionesSeleccionadas[i] = false; // Desmarcar todas las opciones
+            }
+        }
     
