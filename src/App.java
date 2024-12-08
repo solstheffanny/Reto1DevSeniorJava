@@ -1,4 +1,16 @@
-public class app {
+import java.text.NumberFormat;
+import java.util.Locale;
+import java.util.Random;
+import java.util.Scanner;
+
+import javax.swing.BoxLayout;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JProgressBar;
+import javax.swing.SwingConstants;
+
+
+public class App {
 
         static Scanner scanner = new Scanner(System.in);
     
@@ -41,10 +53,6 @@ public class app {
                                                                    // de perdidas con base a este valor sin modificaciones
         static final double inicialOxigeno = totalOxigeno;
     
-        public static void main(String[] args) {
-            menuPrincipal();
-            scanner.close();
-        }
         public static void main(String[] args) {
             menuPrincipal();
             scanner.close();
@@ -118,7 +126,6 @@ public class app {
                         
                         case 5:
                             System.out.println("Gracias por tu viaje. Finalización del recorrido.");
-                            presionaEnter();
                         break;
                         
                         case 6:
