@@ -1,12 +1,16 @@
+import java.text.NumberFormat;
+import java.util.Locale;
 import java.util.Random;
 import java.util.Scanner;
 
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JProgressBar;
+import javax.swing.SwingConstants;
 
 
-public class app {
+public class App {
 
         static Scanner scanner = new Scanner(System.in);
     
@@ -122,7 +126,6 @@ public class app {
                         
                         case 5:
                             System.out.println("Gracias por tu viaje. Finalización del recorrido.");
-                            presionaEnter();
                         break;
                         
                         case 6:
@@ -541,4 +544,20 @@ public class app {
                 opcionesSeleccionadas[i] = false; // Desmarcar todas las opciones
             }
         }
+        
+        public static String formatNumber(double number) {
+            NumberFormat formatter = NumberFormat.getNumberInstance(Locale.US); // Esta es una opcion de separador de miles
+            formatter.setGroupingUsed(true); // Activar agrupación por miles
+            formatter.setMaximumFractionDigits(2); // Limitar a 2 decimales
+            formatter.setMinimumFractionDigits(0); // No mostrar decimales innecesarios como ".00"
+            return formatter.format(number);
+        }
+    
+        public static void presionaEnter() {
+            System.out.println("\nPresiona 'Enter' para continuar...");
+            scanner.nextLine();
+            scanner.nextLine();
+        }
+    
+    }
     
