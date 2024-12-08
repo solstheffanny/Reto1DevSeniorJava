@@ -1,3 +1,11 @@
+import java.util.Random;
+import java.util.Scanner;
+
+import javax.swing.BoxLayout;
+import javax.swing.JFrame;
+import javax.swing.JProgressBar;
+
+
 public class app {
 
         static Scanner scanner = new Scanner(System.in);
@@ -41,10 +49,6 @@ public class app {
                                                                    // de perdidas con base a este valor sin modificaciones
         static final double inicialOxigeno = totalOxigeno;
     
-        public static void main(String[] args) {
-            menuPrincipal();
-            scanner.close();
-        }
         public static void main(String[] args) {
             menuPrincipal();
             scanner.close();
