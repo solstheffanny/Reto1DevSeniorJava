@@ -537,7 +537,7 @@ public class app {
                 opcionesSeleccionadas[i] = false; // Desmarcar todas las opciones
             }
         }
-        
+
         public static String formatNumber(double number) {
             NumberFormat formatter = NumberFormat.getNumberInstance(Locale.US); // Esta es una opcion de separador de miles
             formatter.setGroupingUsed(true); // Activar agrupación por miles
@@ -553,4 +553,5 @@ public class app {
         }
     
     }
+    
     
