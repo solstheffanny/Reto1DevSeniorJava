@@ -39,7 +39,7 @@ public class App {
     static double factorCombustible = 0.7;
     static double factorOxigeno = 0.8;
     static double porcentajeAdicional = 50; // Si en algún momento se quiere asignar un porcentaje mayor o menor para
-                                            // que la persona administre los recursos se puede hacer
+                                            // que la persona administre recursos se puede hacer
     static double combustibleExtra = 0;
     static double oxigenoExtra = 0;
     static double combustibleMinimo = 0;
