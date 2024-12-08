@@ -231,4 +231,127 @@ public class app {
             // meses = dias / 30
             // años = dias / 365
         }
+
+
+        public static void calculoDeRecursos() {
+            // Lógica para calcular recursos
+            // Calculo de tiempo es distancia / velocidad
+    
+            // El factor de combustible para viajes espacial es de 0.05 por km
+            // El factor de oxigeno por persona por dia es de 0.8
+    
+            combustibleMinimo = distancia[planetaSeleccionado] * factorCombustible;
+            oxigenoMinimo = totalDias * factorOxigeno * cantidadDePasajeros;
+    
+            System.out.println("\n************************************************");
+            System.out.println("Analisis del viaje");
+            System.out.println("************************************************\n\n");
+    
+            System.out.printf("%-40s%s%n", "Nave seleccionada: ->", naves[naveSeleccionada]);
+            System.out.printf("%-40s%s%n", "Destino seleccionado: ->", planetas[planetaSeleccionado]);
+            System.out.printf("%-40s%s%n", "Distancia desde la tierra: ->",
+                    formatNumber(distancia[planetaSeleccionado]) + " km.");
+            System.out.printf("%-40s%s%n", "Total pasajeros a transportar: ->",
+                    formatNumber(cantidadDePasajeros) + " pasajeros.");
+            System.out.printf("%-40s%s/%s/%s%n", "Duracion del viaje en dias/meses/años: ->",
+                    formatNumber(totalDias), formatNumber(totalMeses), formatNumber(totalAños));
+            System.out.printf("%-40s%s%s%n", "Cantidad de oxigeno en la nave: ->", formatNumber(oxigenoMinimo),
+                    " unidades de oxigeno.");
+            System.out.printf("%-40s%s%s%n", "Cantidad de combustible para la nave: ->", formatNumber(combustibleMinimo),
+                    " unidades de combustible.");
+    
+            presionaEnter();
+    
+            System.out.println("\nTienes " + porcentajeAdicional
+                    + "% adicional de unidades disponibles para disponer en oxigeno y combustible");
+            System.out.println("Recuerda gestionar estas unidades ya que puedes tener imprevistos en el viaje ");
+    
+            seleccionRecursos();
+    
+            presionaEnter();
+    
+        }
+    
+        public static void seleccionRecursos() {
+            char opcion;
+            do {
+                System.out.println("\n************************************************");
+                System.out.println("Elige cómo asignar los recursos:");
+                System.out.println("************************************************\n");
+                System.out.println("P - Asignar un porcentaje personalizado");
+                System.out.println("O - Asignar todas las unidades adicionales al oxígeno");
+                System.out.println("C - Asignar todas las unidades adicionales al combustible");
+                System.out.println("N - Mantener los recursos distribuidos (25% / 25%)");
+                System.out.println("Introduce tu opción (P/O/C/N): ");
+                opcion = scanner.next().toUpperCase().charAt(0);
+    
+                combustibleMinimo = distancia[planetaSeleccionado] * factorCombustible;
+                oxigenoMinimo = totalDias * factorOxigeno * cantidadDePasajeros;
+                totalOxigeno = oxigenoMinimo + oxigenoExtra;
+                totalCombustible = combustibleMinimo + combustibleExtra;
+    
+                switch (opcion) {
+                    case 'P':
+                        boolean confirmado = false;
+                        while (!confirmado) {
+                            System.out.println(
+                                    "Del 50% de recursos adicionales cuanto desea asignar al oxigeno (entre 0 y 50%): ");
+                            porcentajeOxigeno = scanner.nextInt();
+    
+                            if (porcentajeOxigeno < 0 || porcentajeOxigeno > 50.0) {
+                                System.err.println("Porcentaje inválido. Debe estar entre 0 y 50.");
+                                continue;
+                            }
+                            oxigenoExtra = (porcentajeOxigeno / 100.0) * (oxigenoMinimo);
+                            combustibleExtra = ((porcentajeAdicional - porcentajeOxigeno) / 100.0) * combustibleMinimo;
+    
+                            System.out.println("Resumen");
+                            System.out.printf("Oxígeno adicional: %d%% (%s unidades adicionales).\n",
+                                    porcentajeOxigeno, formatNumber(oxigenoExtra));
+                            System.out.println("Combustible adicional: " + (int) (porcentajeAdicional - porcentajeOxigeno)
+                                    + "% (" + formatNumber(combustibleExtra) + " unidades adicionales).");
+    
+                            System.out.print("¿Confirmar distribución? Si o No (S/N): ");
+                            char confirmacion = scanner.next().toUpperCase().charAt(0);
+    
+                            if (confirmacion == 'S') {
+                                confirmado = true;
+                            } else {
+                                System.out.println("Reasignando recursos...");
+                            }
+                        }
+    
+                        break;
+                    case 'O':
+                        oxigenoExtra = (porcentajeAdicional / 100.0) * oxigenoMinimo;
+                        combustibleExtra = 0.0;
+                        porcentajeOxigeno = 50;
+                        break;
+    
+                    case 'C':
+                        combustibleExtra = (porcentajeAdicional / 100.0) * combustibleMinimo;
+                        oxigenoExtra = 0.0;
+                        porcentajeOxigeno = 0;
+                        break;
+    
+                    case 'N':
+                        oxigenoExtra = (porcentajeAdicional / 200) * oxigenoMinimo;
+                        combustibleExtra = (porcentajeAdicional / 200) * combustibleMinimo;
+                        porcentajeOxigeno = (int) porcentajeAdicional / 2;
+                        break;
+                    default:
+                        System.err.print("Opción inválida. Por favor, selecciona de nuevo.");
+    
+                }
+    
+            } while (opcion != 'P' && opcion != 'O' && opcion != 'C' && opcion != 'N');
+    
+            System.out.println("\nResumen de recursos asignados:");
+            System.out.println(
+                    "Oxígeno adicional: " + formatNumber(oxigenoExtra) + " adicional" + " (" + porcentajeOxigeno + "%)");
+            System.out.println("Combustible adicional: " + formatNumber(combustibleExtra) + " adicional" + " ("
+                    + (int) (porcentajeAdicional - porcentajeOxigeno) + "%)");
+            System.out.println("Oxígeno total: " + formatNumber(oxigenoMinimo + oxigenoExtra) + " unidades.");
+            System.out.println("Combustible total: " + formatNumber(combustibleMinimo + combustibleExtra) + " unidades");
+        }
     
