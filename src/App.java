@@ -355,3 +355,141 @@ public class app {
             System.out.println("Combustible total: " + formatNumber(combustibleMinimo + combustibleExtra) + " unidades");
         }
     
+        public static void inicioViaje() {
+            // Lógica para comenzar el viaje
+            random();
+            presionaEnter();
+        }
+    
+        public static void random() {
+    
+            System.out.println("Eventos inesperados durante el recorrido: ");
+            // Crear el JFrame
+            JFrame frame = new JFrame("Viaje interespacial a " + planetas[planetaSeleccionado]);
+            frame.setSize(700, 100);
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
+    
+            // Crear los componentes
+            JProgressBar barra = new JProgressBar(0, 100);
+            barra.setStringPainted(true);
+    
+            JLabel etiquetaEvento = new JLabel("Iniciando viaje...");
+            etiquetaEvento.setHorizontalAlignment(SwingConstants.CENTER);
+    
+            JLabel etiquetaRecursos = new JLabel(
+                    "Combustible: " + formatNumber(totalCombustible) + " | Oxígeno: " + formatNumber(totalOxigeno));
+            etiquetaRecursos.setHorizontalAlignment(SwingConstants.CENTER);
+    
+            // Agregar los componentes al JFrame
+            frame.add(barra);
+            frame.add(etiquetaEvento);
+            frame.add(etiquetaRecursos);
+    
+            frame.setLocationRelativeTo(null);
+            frame.setVisible(true);
+    
+            double reduccionCombustible = 0.009 * combustibleMinimo;
+            double reduccionOxigeno = 0.009 * oxigenoMinimo;
+    
+            // Simular el avance del viaje
+            Random random = new Random();
+            for (int i = 0; i <= 100; i++) {
+                barra.setValue(i); // Actualizar el progreso de la barra
+    
+                totalCombustible -= (reduccionCombustible); // Esta operacion descuenta 1 unidad de
+                                                            // recursos cada 1% de viaje teniendo en
+                                                            // cuenta la cantidad de combustible
+                                                            // minimo sin tener en cuenta el
+                                                            // combustible extra, de este modo existe
+                                                            // un mayor margen de perdidas y
+                                                            // ganancias del viaje
+                totalOxigeno -= (reduccionOxigeno);
+    
+                // Mostrar los recursos actualizados
+                etiquetaRecursos.setText(
+                        "Combustible: " + formatNumber(totalCombustible) + " | Oxígeno: " + formatNumber(totalOxigeno));
+    
+                // Esta opcion verifica que si el recurso es = 0 se agotaron los recursos y
+                // perdiste, esto evita valores negativos para controlar limites minimos
+                if (totalCombustible <= 0 || totalOxigeno <= 0) {
+                    etiquetaEvento.setText("¡Has perdido! Recursos agotados.");
+                    etiquetaRecursos.setText("Combustible: " + Math.max(totalCombustible, 0) +
+                            " | Oxígeno: " + Math.max(totalOxigeno, 0));
+                    System.out.println("¡Has perdido! La nave se quedó sin recursos");
+                    break;
+    
+                }
+                // Generar un evento aleatorio
+                if (i > 10 && i < 98 && random.nextInt(10) == 0) { // Probabilidad de 1/10
+                    Object[] resultado = eventoAleatorio();
+                    String evento = (String) resultado[0];
+    
+                    // Imprimir el evento
+                etiquetaEvento.setText("Evento: " + evento);
+    
+                // Esperar 1 segundo antes de aplicar los cambios
+                try {
+                    Thread.sleep(1000); // Pausa de 1 segundo
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+    
+    
+                    // Mostrar el evento y recursos actualizados
+                    etiquetaEvento.setText("Evento: " + evento);
+                    etiquetaRecursos.setText(
+                            "Combustible: " + formatNumber(totalCombustible) + " | Oxígeno: " + formatNumber(totalOxigeno));
+    
+                    System.out.println("Avance: " + i + "% || Evento: " + evento);
+    
+    
+                    // Pausa para mostrar el evento
+                    try {
+                        Thread.sleep(5000); // Mostrar evento por 3 segundos
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+    
+                    // Verificar si los recursos se han agotado tras el evento
+                    if (totalCombustible <= 0 || totalOxigeno <= 0) {
+                        etiquetaEvento.setText("¡Has perdido! Recursos agotados.");
+                        etiquetaRecursos.setText("Combustible: " + Math.max(totalCombustible, 0) +
+                                " | Oxígeno: " + Math.max(totalOxigeno, 0));
+    
+                                // Pausa para que se vea el mensaje antes de cerrar la ventana
+                                try {
+                                    Thread.sleep(5000); // Mantener la ventana abierta por 5 segundos
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+    
+                        break;
+                    }
+    
+                    // Volver al mensaje de progreso del viaje
+                    etiquetaEvento.setText("Continuando el viaje...");
+                }
+    
+                try {
+                    Thread.sleep(600); // Pausa para simular el avance
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+    
+            // Finalizar el viaje si no se han agotado los recursos
+            if (totalCombustible > 0 && totalOxigeno > 0) {
+                etiquetaEvento.setText("¡Felicitaciones, has llegado a tu destino!");
+                System.out.println("¡Felicitaciones, has llegado a tu destino!");    
+            }
+            
+    
+            try {
+                Thread.sleep(5000); // Esperar antes de cerrar
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            frame.dispose();
+        }
+    
