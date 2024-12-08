@@ -28,19 +28,19 @@ public class App {
         static double[] velocidadNave = { 1_500, 2_500, 25_000, 50_000, 70_000 }; // velocidad en Km/h
         static int[] pasajeros = { 5_000_000, 50_000, 5_000, 50, 5 }; // Cantidad de pasajeros de la nave
     
-        static boolean[] opcionesSeleccionadas = new boolean[5]; // Solo para las opciones 1-5 del menú principal
+        static boolean[] opcionesSeleccionadas = new boolean[5]; // El menu de las 6 opciones
     
-        static int planetaSeleccionado = -1;
+        static int planetaSeleccionado = -1; 
         static int naveSeleccionada = -1;
         static int cantidadDePasajeros = -1;
         static double totalAños;
         static double totalMeses;
         static double totalDias;
         static double totalHoras;
-        static double factorCombustible = 0.7;
-        static double factorOxigeno = 0.8;
-        static double porcentajeAdicional = 50; // Si en algún momento se quiere asignar un porcentaje mayor o menor para
-                                                // que la persona administre los recursos se puede hacer
+        static double factorCombustible = 0.7; // Factor de consumo y desgaste de combustible que varia la distancia y la nave
+        static double factorOxigeno = 0.8;     // Factor de consumo y desgaste de oxigeno que varia la cantidad de persona, la distancia y la nave
+        static double porcentajeAdicional = 50; // Si en algún momento se quiere asignar un porcentaje mayor o menor de recursos adicionales
+                                                
         static double combustibleExtra = 0;
         static double oxigenoExtra = 0;
         static double combustibleMinimo = 0;
@@ -49,8 +49,7 @@ public class App {
         static double totalOxigeno;
         static int porcentajeOxigeno;
     
-        static final double inicialCombustible = totalCombustible; // Se toma el valor inicial para calcular el porcentaje
-                                                                   // de perdidas con base a este valor sin modificaciones
+        static final double inicialCombustible = totalCombustible; // Se toma el valor inicial para calcular el porcentaje de perdidas con base a este valor sin modificaciones
         static final double inicialOxigeno = totalOxigeno;
     
         public static void main(String[] args) {
@@ -66,10 +65,10 @@ public class App {
                 System.out.println("**************** Menú Principal ****************");
                 System.out.println("************************************************\n\n");
     
-                // Mostrar las opciones con subrayado si ya han sido seleccionadas
+                // Este for modifica y subraya las opciones del menú que ya han sido seleccionadas
                 for (int i = 0; i < 5; i++) {
                     String estado = opcionesSeleccionadas[i] ? "\033[4m" : ""; // Subrayado si seleccionada
-                    String reset = opcionesSeleccionadas[i] ? "\033[0m" : ""; // Restablecer formato
+                    String reset = opcionesSeleccionadas[i] ? "\033[0m" : ""; // Cuando se restablece el formato
                     System.out.println((i + 1) + ". " + estado + getMenuDescripcion(i + 1) + reset);
                 }
     
@@ -84,7 +83,7 @@ public class App {
                                 System.out.println("Esta opción ya ha sido seleccionada. Elige otra o reinicia las opciones.");
                             } else {
                         seleccionDestino();
-                        opcionesSeleccionadas[0] = true; // Opción 1 completada
+                        opcionesSeleccionadas[0] = true; 
                             }
                         break;
     
@@ -143,7 +142,7 @@ public class App {
     
         public static String getMenuDescripcion(int opcion) {
     
-            return switch (opcion) {
+            return switch (opcion) { //Nombre de las impresiones del menú
                 case 1 -> "Elige a qué planeta quieres ir";
                 case 2 -> "Elige la nave para el viaje interplanetario";
                 case 3 -> "Calcula tus recursos para el viaje";
