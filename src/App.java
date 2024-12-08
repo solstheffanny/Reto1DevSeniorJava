@@ -36,7 +36,7 @@ public class App {
     static double totalMeses;
     static double totalDias;
     static double totalHoras;
-    static double factorCombustible = 0.7;
+    static double factorCombustible = 0.07;
     static double factorOxigeno = 0.8;
     static double porcentajeAdicional = 50; // Si en algún momento se quiere asignar un porcentaje mayor o menor para
                                             // que la persona administre recursos se puede hacer
@@ -411,8 +411,8 @@ public class App {
         frame.setVisible(true);
 
         // reduccion de los recursos a medida que avanza el viaje
-        double reduccionCombustible = 0.009 * combustibleMinimo;
-        double reduccionOxigeno = 0.0075 * oxigenoMinimo;
+        double reduccionCombustible = 0.01 * combustibleMinimo;
+        double reduccionOxigeno = 0.008 * oxigenoMinimo;
 
         // Simular el avance del viaje
         Random random = new Random();
