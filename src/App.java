@@ -203,3 +203,32 @@ public class app {
             presionaEnter();
         }
     
+        public static void seleccionDePasajeros() {
+            System.out.println("Ingresa la cantidad de pasajeros que viajarán: ");
+            cantidadDePasajeros = scanner.nextInt();
+    
+            if (cantidadDePasajeros <= pasajeros[naveSeleccionada]) {
+                System.out.println("\nLa nave espacial " + naves[naveSeleccionada] + " es adecuada para "
+                        + formatNumber(cantidadDePasajeros) + " pasajeros \n ");
+            } else {
+                System.out.println(
+                        "\nLa nave seleccionada no es adecuada para " + formatNumber(cantidadDePasajeros) + " pasajeros. " +
+                                "\nElige otra nave con mayor capacidad o reduce la cantidad de pasajeros.");
+                seleccionDeNave();
+            }
+    
+        }
+    
+        public static void calculoDeTiempo() {
+            System.out.println("\nDistancia total del recorrido al planeta " + planetas[planetaSeleccionado] + " es de: "
+                    + formatNumber(distancia[planetaSeleccionado]) + " km.");
+            totalHoras = distancia[planetaSeleccionado] / velocidadNave[naveSeleccionada];
+            totalDias = totalHoras / 24;
+            totalMeses = totalDias / 30;
+            totalAños = totalDias / 365;
+            // Tiempo = distancia / velocidad
+            // dias = horas / 24
+            // meses = dias / 30
+            // años = dias / 365
+        }
+    
