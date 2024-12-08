@@ -69,7 +69,7 @@ public class App {
             for (int i = 0; i < 5; i++) {
                 String estado = opcionesSeleccionadas[i] ? "\033[4m" : ""; // Subrayado si seleccionada
                 String reset = opcionesSeleccionadas[i] ? "\033[0m" : ""; // Restablecer formato
-                System.out.println((i + 1) + ". " + estado + getMenuDescripcion(i + 1) + reset);
+                System.out.println((i + 1) + ". " + estado + generalMenu(i + 1) + reset);
             }
 
             System.out.println("6. Reiniciar las opciones");
@@ -77,6 +77,7 @@ public class App {
             System.out.print("\nElige una opción: ");
             opcion = scanner.nextInt();
 
+            //Muestra el menú principal y no permite que el usuario seleccione la opción 2,3 o 4 sin haber escogido las anteriores
             switch (opcion) {
                 case 1:
                     if (opcionesSeleccionadas[0]) {
@@ -140,7 +141,7 @@ public class App {
 
     }
 
-    public static String getMenuDescripcion(int opcion) {
+    public static String generalMenu(int opcion) {
 
         return switch (opcion) {
             case 1 -> "Elige a qué planeta quieres ir";
@@ -185,6 +186,7 @@ public class App {
             System.out.println("Selecciona una nave:");
             System.out.println("************************************************\n\n");
 
+            //seleccionar transporte con base a las naves determinadas anteriormente
             for (int j = 0; j < naves.length; j++) {
                 System.out.println(
                         "Nave " + (j + 1) + ". " + naves[j] + ", con una velocidad de " + formatNumber(velocidadNave[j])
@@ -410,7 +412,7 @@ public class App {
 
         // reduccion de los recursos a medida que avanza el viaje
         double reduccionCombustible = 0.009 * combustibleMinimo;
-        double reduccionOxigeno = 0.008 * oxigenoMinimo;
+        double reduccionOxigeno = 0.0075 * oxigenoMinimo;
 
         // Simular el avance del viaje
         Random random = new Random();
